@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-LABEL maintainer="https://github.com/factoriotools/factorio-docker"
+LABEL maintainer="https://github.com/stephenclau/factorio"
 
 ARG USER=factorio
 ARG GROUP=factorio
