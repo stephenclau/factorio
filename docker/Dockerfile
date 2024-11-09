@@ -81,7 +81,7 @@ RUN set -ox pipefail \
 
 COPY files/*.sh /
 COPY files/config.ini /opt/factorio/config/config.ini
-COPY files/_auto_save1.zip /opt/factorio/saves
+COPY files/SA_RW_vanilla.zip /opt/factorio/saves
 COPY files/server-settings.json /opt/factorio/config
 
 VOLUME /factorio
