@@ -82,6 +82,7 @@ RUN set -ox pipefail \
 COPY files/*.sh /
 COPY files/config.ini /opt/factorio/config/config.ini
 COPY files/server-settings.json /opt/factorio/config
+COPY files/SA_RW_vanilla.zip /opt/factorio/saves
 
 VOLUME /factorio
 EXPOSE $PORT/udp $RCON_PORT/tcp
