@@ -1,14 +1,14 @@
 
 {
     "name": "Los Hermanos Factorio: Space Age",
-    "description": "Vanilla playthrough",
-    "tags": [ "game", "tags" ],
+    "description": "Brothers in gaming.",
+    "tags": [ "brothers", "hardhard" ],
   
     "_comment_max_players": "Maximum number of players allowed, admins can join even a full server. 0 means unlimited.",
     "max_players": 24,
   
     "_comment_visibility": [
-      "public: Game will be published on the official Factorio matching server",
+      "public: Space Age; rail world preset, biter expansion off, pollution diffusion bare minimum, resource patch size, density, and richness near max.",
       "lan: Game will be broadcast on LAN"
     ],
     "visibility": {
