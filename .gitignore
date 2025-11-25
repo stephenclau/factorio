@@ -1,0 +1,8 @@
+*.sqlite
+*.log
+*.tmp
+*.bak
+*.env
+*.pem
+*.ppk
+/.secrets/*

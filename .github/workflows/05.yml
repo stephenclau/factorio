@@ -1,0 +1,46 @@
+name: 05.Factorio Version Badge
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Every 12 hours
+  workflow_dispatch:
+
+jobs:
+  factorio-badge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch latest Factorio stable version
+        id: factorio
+        run: |
+          STABLE_VERSION=$(curl -s https://factorio.com/api/latest-releases | jq -r '.stable.headless')
+          echo "version=$STABLE_VERSION" >> $GITHUB_OUTPUT
+          echo "Latest Factorio stable: $STABLE_VERSION"
+
+      - name: Create badge directory
+        run: mkdir -p .github/badges
+
+      - name: Generate badge JSON
+        run: |
+          cat > .github/badges/factorio-version.json << EOF
+          {
+            "schemaVersion": 1,
+            "label": "Factorio Ver:",
+            "message": "${{ steps.factorio.outputs.version }}",
+            "color": "orange",
+            "style": "plastic"
+          }
+          EOF
+
+      - name: Commit and push badge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/badges/factorio-version.json
+          git diff --staged --quiet || git commit -m "chore: update Factorio version badge to ${{ steps.factorio.outputs.version }}"
+          git push

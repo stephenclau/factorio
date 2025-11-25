@@ -1,0 +1,58 @@
+services:
+  factorio:
+    container_name: factorio
+    image: slautomaton/factorio:stable
+    dns: #factorio server curls out to their api. This ensures the container can resolve hosts and avoids errors thrown.
+      - 8.8.8.8
+      - 1.1.1.1
+    hostname: factorio-dedicated
+    init: true
+    restart: "unless-stopped"
+    ports:
+      - 34197:34197/udp
+      - 27015:27015/tcp
+    volumes:
+      - /home/factorio/mods:/opt/factorio/mods
+      - /home/factorio/scenarios:/opt/factorio/scenarios
+      - /home/factorio/saves:/opt/factorio/saves
+      - /var/log:/opt/factorio/logs
+    secrets:
+      - FACTORIO_USERNAME
+      - FACTORIO_TOKEN
+      - FACTORIO_GAME_PASSWORD
+      - RCON_PASSWORD
+    environment:
+      - SERVER_NAME=
+      - SERVER_DESCRIPTION= 
+      - TAGS=
+      - LOAD_LATEST_SAVE=true
+      - SAVE_NAME=whatevermap.zip
+      - MAX_PLAYERS=10
+      - IS_PUBLIC=true
+      - IS_LAN=true
+      - REQUIRE_USER_VERIFICATION=true
+      - ALLOW_COMMANDS=admins-only
+      - AUTOSAVE_INTERVAL=10
+      - AUTOSAVE_SLOTS=6
+      - UID=
+      - GID=
+      - TZINFO=America/Los_Angeles
+      - AUTOSAVE_SERVER_ONLY=true
+      - AFK_AUTOKICK_INTERVAL=25
+      - AUTO_PAUSE_WHEN_PLAYERS_CONNECT=false
+      - ONLY_ADMINS_CAN_PAUSE=true
+      - IGNORE_PLAYER_LIMIT_FOR_RETURNING_PLAYERS=false
+      - AUTO_PAUSE=true
+      - PORT=34197
+      - RCON_PORT=27015
+      - FACTORIO_VERSION=stable
+
+secrets:
+  FACTORIO_USERNAME:
+    file: ./.secrets/FACTORIO_USERNAME.txt
+  FACTORIO_TOKEN:
+    file: ./.secrets/FACTORIO_TOKEN.txt
+  FACTORIO_GAME_PASSWORD:
+    file: ./.secrets/FACTORIO_GAME_PASSWORD.txt
+  RCON_PASSWORD:
+    file: ./.secrets/RCON_PASSWORD.txt

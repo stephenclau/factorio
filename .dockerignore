@@ -1,0 +1,11 @@
+.git
+.github
+.gitignore
+.env
+.pem
+.ppk
+node_modules
+test/
+.secrets/*
+*/.secrets/*
+hostfiles/*
