@@ -2,7 +2,7 @@ services:
   factorio:
     container_name: factorio
     image: slautomaton/factorio:stable
-    dns: #factorio server curls out to their api. This ensures the container can resolve hosts and avoids errors thrown.
+    dns: #This ensures the container itself, can resolve hosts for multiplayer verification and public server browser discoverability, on first try.
       - 8.8.8.8
       - 1.1.1.1
     hostname: factorio-dedicated
@@ -36,9 +36,9 @@ services:
       - AUTOSAVE_SLOTS=6
       - UID=
       - GID=
-      - TZINFO=America/Los_Angeles
+      - TZ=America/Vancouver
       - AUTOSAVE_SERVER_ONLY=true
-      - AFK_AUTOKICK_INTERVAL=25
+      - AFK_AUTOKICK_INTERVAL=60
       - AUTO_PAUSE_WHEN_PLAYERS_CONNECT=false
       - ONLY_ADMINS_CAN_PAUSE=true
       - IGNORE_PLAYER_LIMIT_FOR_RETURNING_PLAYERS=false
