@@ -9,7 +9,7 @@ fi
 #setting bash variables
 FACTORIO_BIN="/opt/factorio/bin/x64/factorio"
 SAVE_DIR="/opt/factorio/saves"
-CONFIG_DIR="/opt/factorio/data"
+CONFIG_DIR="/opt/factorio/config"
 MODS_DIR="/opt/factorio/mods"
 LOG_DIR="/opt/factorio/log"
 function initial_setup () {
@@ -63,8 +63,8 @@ function server_config () {
     echo "Begin generating configuration files..."
     # checks for config directory, creates if it doesn't exist
     echo "Creating config directory (if it already does not exist)...Done"
-    if [ ! -e "/opt/factorio/data" ]; then
-            mkdir -p /opt/factorio/data
+    if [ ! -e "/opt/factorio/config" ]; then
+            mkdir -p /opt/factorio/config
     fi
     # load secrets from Docker Secrets if they exist
     echo "Checking for and loading Docker Secrets..."
@@ -99,7 +99,7 @@ function server_config () {
         echo "FACTORIO_GAME_PASSWORD Docker Secret not found, setting default password to ${FACTORIO_GAME_PASSWORD:=factorio}."
     fi
     # create server-settings.json file
-    if [ -f "/opt/factorio/data/server-settings.json" ]; then
+    if [ -f "/opt/factorio/config/server-settings.json" ]; then
         echo "Overwriting PREVIOUS server-settings.json..."
     else
         echo "Creating NEW server-settings.json..."
@@ -108,7 +108,7 @@ function server_config () {
     # Replacing the tabs with spaces will break the script.
     # fix for TAGS to be a proper JSON array
     TAGS_JSON=$(echo "${TAGS}" | sed 's/,/","/g')
-    cat > /opt/factorio/data/server-settings.json <<- EOF
+    cat > /opt/factorio/config/server-settings.json <<- EOF
         {
             "name": "${SERVER_NAME}",
             "description": "${SERVER_DESCRIPTION}",
@@ -141,9 +141,9 @@ function server_config () {
             "max_upload_in_kilobytes_per_second": 0
         }
 EOF
-    echo "COMPLETED -- Configuration JSON file created at /opt/factorio/data."
+    echo "COMPLETED -- Configuration JSON file created at /opt/factorio/config."
     echo "Aligning Factorio Config directory permissions to UID:GID ${UID}:${GID}..."
-    chown -R "${UID}:${GID}" /opt/factorio/data
+    chown -R "${UID}:${GID}" /opt/factorio/config
     echo "COMPLETED -- Configuration JSON file permissions now aligned!"
     echo "****************************************************************************";
     echo "Begin save file handling..."
