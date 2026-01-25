@@ -62,10 +62,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /opt/factorio /opt/factorio/log /opt/factorio/config /opt/factorio/saves /opt/factorio/mods /opt/factorio/scenarios /opt/factorio/script-output
 # Download and install Factorio headless server depending on version specified - citing web auth credentials from secrets
 
-RUN if [ "$FACTORIO_VERSION" = "latest" ]; then \
-        FACTORIO_DOWNLOAD_URL="https://www.factorio.com/get-download/latest/headless/linux64"; \
-    elif [ "$FACTORIO_VERSION" = "stable" ]; then \
-        FACTORIO_DOWNLOAD_URL="https://www.factorio.com/get-download/stable/headless/linux64"; \
+RUN if [ "$FACTORIO_VERSION" = "stable" ]; then \
+        FACTORIO_DOWNLOAD_URL="https://factorio.com/get-download/stable/headless/linux64"; \
     elif [ "$FACTORIO_VERSION" = "experimental" ]; then \
         FACTORIO_DOWNLOAD_URL="https://www.factorio.com/get-download/experimental/headless/linux64"; \
     else \
