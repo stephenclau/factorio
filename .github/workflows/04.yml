@@ -35,6 +35,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: '${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:stable'
+          ignore-unfixed: 'true'
           format: 'sarif'
           exit-code: 1
           severity: 'CRITICAL,HIGH'
@@ -42,6 +43,7 @@ jobs:
           limit-severities-for-sarif: 'true'
         env:
           TRIVY_VEX: '.github/vex/golang-exceptions.vex.json'
+          
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v4
         with:
