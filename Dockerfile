@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV LOAD_LATEST_SAVE=true \
     SAVE_NAME="" \
     TZ="" \
-    FACTORIO_VERSION="stable" \
+    FACTORIO_VERSION="STABLE" \
     SERVER_NAME="" \
     SERVER_DESCRIPTION="" \
     TAGS="" \
@@ -43,10 +43,10 @@ ENV LOAD_LATEST_SAVE=true \
     #MAX_UPLOAD_IN_KILOBYTES_PER_SECOND=0 
     
 # Metadata
-LABEL maintainer="https://github.com/slauth82/factorio>" \
+LABEL maintainer="https://github.com/slautomaton/factorio>" \
       description="Containerized dedicated server for Factorio Space Age with mod support" \
       version="1.0.0" \
-      author="slauth82" 
+      author="slautomaton" 
 
 # Install core dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -62,9 +62,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /opt/factorio /opt/factorio/log /opt/factorio/config /opt/factorio/saves /opt/factorio/mods /opt/factorio/scenarios /opt/factorio/script-output
 # Download and install Factorio headless server depending on version specified - citing web auth credentials from secrets
 
-RUN if [ "$FACTORIO_VERSION" = "stable" ]; then \
+RUN if [ "$FACTORIO_VERSION" = "STABLE" ]; then \
         FACTORIO_DOWNLOAD_URL="https://factorio.com/get-download/stable/headless/linux64"; \
-    elif [ "$FACTORIO_VERSION" = "experimental" ]; then \
+    elif [ "$FACTORIO_VERSION" = "EXPERIMENTAL" ]; then \
         FACTORIO_DOWNLOAD_URL="https://www.factorio.com/get-download/experimental/headless/linux64"; \
     else \
         FACTORIO_DOWNLOAD_URL="https://www.factorio.com/get-download/${FACTORIO_VERSION}/headless/linux64"; \
