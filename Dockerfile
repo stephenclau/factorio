@@ -1,9 +1,21 @@
 # Choosing Debian Slim base because it already includes glibc and 64-bit libraries needed to run Factorio. Disregarded Alpine having to compile glibc by hand - adding complexity I don't need and with neglible size benefits.
 # trixie = Debian 13
-FROM debian:trixie-slim 
+FROM debian:trixie-20261104-slim@sha256:sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
 
 # Arguments can only be set at build time, not runtime, and are baked into the build meta data. Do not put secrets in here.
 ARG DEBIAN_FRONTEND=noninteractive
+
+# Install core dependencies and patch the base image before setting runtime metadata.
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    xz-utils \
+    gosu \
+    tzdata && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Default Environment variables. Use Docker Secrets instead of passing user credentials as build or run time variables/arguments that can forever live in build meta data.
 ENV LOAD_LATEST_SAVE=true \
@@ -47,16 +59,6 @@ LABEL maintainer="https://github.com/slautomaton/factorio>" \
       description="Containerized dedicated server for Factorio Space Age with mod support" \
       version="1.0.0" \
       author="slautomaton" 
-
-# Install core dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    xz-utils \
-    gosu \
-    tzdata && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Create directory structure
 RUN mkdir -p /opt/factorio /opt/factorio/log /opt/factorio/config /opt/factorio/saves /opt/factorio/mods /opt/factorio/scenarios /opt/factorio/script-output
