@@ -1,6 +1,6 @@
 # Choosing Debian Slim base because it already includes glibc and 64-bit libraries needed to run Factorio. Disregarded Alpine having to compile glibc by hand - adding complexity I don't need and with neglible size benefits.
 # trixie = Debian 13
-FROM debian:trixie-20261104-slim@sha256:sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
+FROM debian:trixie-20261104-slimsha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
 
 # Arguments can only be set at build time, not runtime, and are baked into the build meta data. Do not put secrets in here.
 ARG DEBIAN_FRONTEND=noninteractive
