@@ -34,7 +34,7 @@ jobs:
       - name: Run Trivy vulnerability scan
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
-          version: 'v0.75.0'
+          version: 'v0.76.2'
           image-ref: '${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:stable'
           ignore-unfixed: 'true'
           format: 'sarif'
